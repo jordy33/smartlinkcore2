@@ -1,4 +1,4 @@
-from btle import UUID, Peripheral
+from btle import UUID, Peripheral, BTLEException
 import struct
 import math
 import pexpect
@@ -35,7 +35,18 @@ if __name__ == "__main__":
                     cmd='01:00'
                 if n.strip() == '2':
                     cmd='02:00'
-                conn.writeCharacteristic(14,cmd)
+                try:
+                    conn.writeCharacteristic(14,cmd)
+                except BTLEException as e:
+                    print ("write error:")
+                    print (e)
+                    print ("Try again? (s/n)")
+                    b=input()
+                    if b == 's':
+                        a='s'
+                        break
+                else:
+                    b='n'
                 if n.strip() == 's':
                     a='n'
                     break
