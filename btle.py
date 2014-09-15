@@ -173,7 +173,7 @@ class Peripheral:
             elif tval[0]=="h":
                 val = int(tval[1:], 16)
             elif tval[0]=='b':
-                val = binascii.a2b_hex(tval[1:])
+                val = binascii.a2b_hex(str.encode(tval[1:]))
             else:
                 raise BTLEException(BTLEException.INTERNAL_ERROR,
                              "Cannot understand response value %s" % repr(tval))
@@ -382,7 +382,7 @@ if __name__ == '__main__':
         raise ImportError("Cannot find required executable '%s'" % helperExe)
 
     Debugging = False
-    devaddr = sys.argv[1]
+    devaddr = sys.argv[1] + " random"
     print("Connecting to:", devaddr)
     conn = Peripheral(devaddr)
     try:
