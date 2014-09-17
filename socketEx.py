@@ -51,13 +51,15 @@ def threaded_client(conn):
                         pass
                 else:
                     print("socket error ", e)
+
+                bleconn.disconnect()
                 conn.close()
                 break
             except BTLEException as e:
                 #conn.sendall(str.encode("ERROR!!!!"))
                 print(e)
                 #conn.sendall(str.encode("Try again (y/n)?"))
-            
+    bleconn.disconnect()            
     conn.close()
 
 if __name__ == "__main__":
